@@ -26,7 +26,7 @@
 
 #ifndef _KBASE_JM_JS_H_
 #define _KBASE_JM_JS_H_
-
+#define BASE_JD_PRIO_INVALID ((base_jd_prio)255)
 #include "mali_kbase_js_ctx_attr.h"
 
 /**

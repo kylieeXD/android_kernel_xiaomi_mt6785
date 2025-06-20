@@ -840,6 +840,7 @@ static const char * const core_req_strings[] = {
 	"Vertex/Geometry Shader Job + Tiler Job",
 	"Unknown Job"
 };
+/*
 static const char *kbasep_map_core_reqs_to_string(base_jd_core_req core_req)
 {
 	if (core_req & BASE_JD_REQ_SOFT_JOB)
@@ -866,6 +867,7 @@ static const char *kbasep_map_core_reqs_to_string(base_jd_core_req core_req)
 	}
 	return core_req_strings[CORE_REQ_UNKNOWN];
 }
+*/
 #endif
 
 /* Trace an atom submission. */
@@ -1182,8 +1184,8 @@ static bool jd_submit_atom(struct kbase_context *const kctx,
 
 #ifdef CONFIG_GPU_TRACEPOINTS
 	katom->work_id = atomic_inc_return(&jctx->work_id);
-	trace_gpu_job_enqueue(kctx->id, katom->work_id,
-			kbasep_map_core_reqs_to_string(katom->core_req));
+	//trace_gpu_job_enqueue(kctx->id, katom->work_id,
+	//		kbasep_map_core_reqs_to_string(katom->core_req));
 #endif
 
 	if (queued && !IS_GPU_ATOM(katom))

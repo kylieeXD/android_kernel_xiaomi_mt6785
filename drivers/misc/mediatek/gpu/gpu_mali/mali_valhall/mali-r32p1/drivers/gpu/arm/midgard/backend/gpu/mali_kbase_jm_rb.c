@@ -1262,7 +1262,7 @@ void kbase_gpu_complete_hw(struct kbase_device *kbdev, int js,
 						ktime_to_ns(*end_timestamp),
 						(u32)next_katom->kctx->id, 0,
 						next_katom->work_id);
-#if defined(MTK_GPU_BM_2)
+#if defined(MTK_GPU_BM_2) && !defined(GPU_BM_PORTING)
             if(js == 0) {
                 kbdev->v1->ctx = (u32)next_katom->kctx->id;
                 kbdev->v1->job = next_katom->work_id;
@@ -1282,7 +1282,7 @@ void kbase_gpu_complete_hw(struct kbase_device *kbdev, int js,
 	}
 #endif
 
-#if defined(MTK_GPU_BM_2)
+#if defined(MTK_GPU_BM_2) && !defined(GPU_BM_PORTING)
 	{
 		/* The atom in the HEAD */
 		struct kbase_jd_atom *next_katom = kbase_gpu_inspect(kbdev, js,
@@ -1642,8 +1642,8 @@ bool kbase_backend_soft_hard_stop_slot(struct kbase_device *kbdev,
 									false);
 					/* Revert the last_context, or mark as purged */
 					kbdev->hwaccess.backend.slot_rb[js].last_kctx_tagged =
-						katom_idx0->kctx ? SLOT_RB_TAG_KCTX(katom_idx0->kctx) :
-							    SLOT_RB_TAG_PURGED;
+					katom_idx0->kctx ? SLOT_RB_TAG_KCTX(katom_idx0->kctx) :
+					SLOT_RB_TAG_PURGED;
 				} else {
 					/* idx0 has already completed - stop
 					 * idx1

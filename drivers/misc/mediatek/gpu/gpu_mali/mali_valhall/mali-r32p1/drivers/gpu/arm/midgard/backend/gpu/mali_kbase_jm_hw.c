@@ -38,7 +38,9 @@
 #include <device/mali_kbase_device.h>
 #include <backend/gpu/mali_kbase_irq_internal.h>
 #include <backend/gpu/mali_kbase_jm_internal.h>
+#include <uapi/gpu/arm/midgard/gpu/backend/mali_kbase_gpu_regmap_jm.h>
 #include <mali_kbase_regs_history_debugfs.h>
+#include <mali_base_hwconfig_features.h>
 
 static void kbasep_try_reset_gpu_early_locked(struct kbase_device *kbdev);
 static u64 kbasep_apply_limited_core_mask(const struct kbase_device *kbdev,

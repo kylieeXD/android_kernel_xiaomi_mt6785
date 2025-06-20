@@ -1,14 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0
 /*
- * Copyright (C) 2015 MediaTek Inc.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2 as
- * published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
+ * Copyright (c) 2019 MediaTek Inc.
  */
 
 #include "ged_ge.h"
@@ -160,11 +152,9 @@ int ged_ge_alloc(int region_num, uint32_t *region_sizes)
 	entry->region_data = (uint32_t **)(entry->region_sizes + region_num);
 	for (i = 0; i < region_num; ++i) {
 		// check region_sizes parameter
-		if ( region_sizes[i] <= 0 ||
-			 region_sizes[i] > GE_MAX_REGION_SIZE) {
-			GED_PDEBUG("check size fail rgion_sizes[%d]:%u\n",
-				i, region_sizes[i]);
-			goto err_parameter;
+		if (region_sizes[i] <= 0 ||
+			region_sizes[i] > GE_MAX_REGION_SIZE) {
+			goto err_kmalloc;
 		}
 		entry->region_sizes[i] = region_sizes[i];
 	}
@@ -179,8 +169,6 @@ int ged_ge_alloc(int region_num, uint32_t *region_sizes)
 
 	return fd;
 
-err_parameter:
-	kfree(entry->data);
 err_kmalloc:
 err_entry_file:
 	put_unused_fd(entry->alloc_fd);
@@ -352,7 +340,8 @@ int ged_bridge_ge_get(
 	int header_size = sizeof(struct GED_BRIDGE_OUT_GE_GET);
 
 	if (output_buffer_size <
-		header_size + (psGET_IN->uint32_size * sizeof(uint32_t))) {
+		header_size +
+		(psGET_IN->uint32_size * sizeof(uint32_t))) {
 		pr_info("[%s] output_buffer_size (%d byte) < header_size + u32_size (%d byte)",
 			__func__,
 			(unsigned int)output_buffer_size,
@@ -378,7 +367,8 @@ int ged_bridge_ge_set(
 	int header_size = sizeof(struct GED_BRIDGE_IN_GE_SET);
 
 	if (input_buffer_size <
-		header_size+(psSET_IN->uint32_size * sizeof(uint32_t))) {
+		header_size +
+		(psSET_IN->uint32_size * sizeof(uint32_t))) {
 		pr_info("[%s] input_buffer_size (%d byte) < header_size + u32_size (%d byte)",
 			__func__,
 			(unsigned int)input_buffer_size,
