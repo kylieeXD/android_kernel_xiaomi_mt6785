@@ -127,3 +127,12 @@ all.config
 
 # fetched Android config fragments
 kernel/configs/android-*.cfg
+
+# Ignore build
+out/
+clang/
+anykernel/
+
+# Ignore SU
+KernelSU*/
+drivers/kernelsu
