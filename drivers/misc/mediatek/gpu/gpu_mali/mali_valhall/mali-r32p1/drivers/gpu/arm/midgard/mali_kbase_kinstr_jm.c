@@ -51,12 +51,12 @@
 #include <linux/build_bug.h>
 #else
 // Stringify the expression if no message is given.
-#define static_assert(e, ...)  __static_assert(e, #__VA_ARGS__, #e)
-#define __static_assert(e, msg, ...) _Static_assert(e, msg)
+//#define static_assert(e, ...)  __static_assert(e, #__VA_ARGS__, #e)
+//#define __static_assert(e, msg, ...) _Static_assert(e, msg)
 #endif
 
 #if KERNEL_VERSION(4, 16, 0) >= LINUX_VERSION_CODE
-typedef unsigned int __poll_t;
+//typedef unsigned int __poll_t;
 #endif
 
 #ifndef ENOTSUP
